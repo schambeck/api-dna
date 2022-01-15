@@ -27,7 +27,7 @@ public class DnaServiceImpl implements DnaService {
         int hash = Arrays.hashCode(dna);
         boolean exists = repository.existsByHash(hash);
         if (exists) {
-            throw new MutantAlreadyExistsException("Dna already exists");
+//            throw new MutantAlreadyExistsException("Dna already exists");
         }
         boolean mutant = mutantService.isMutant(dna);
         return create(dna, hash, mutant);
