@@ -91,14 +91,14 @@ public class NeighborhoodSearch implements TextSearch {
         if (isDiagonalFirstHalfInvalid(dna.length, rowH, colH)) {
             return empty();
         }
-        for (int row = rowH + 1, col = colH + 1; row < rowH + SEQUENCE_COUNT - 1; row++, col++) {
+        for (int row = rowH + 1, col = colH + 1; row <= rowH + SEQUENCE_COUNT - 1; row++, col++) {
             String text = dna[row];
             char charDiagonal = text.charAt(col);
             if (charDiagonal != charH) {
                 return empty();
             }
         }
-        return Optional.of(new Match("vertical", charH)
+        return Optional.of(new Match("diagonalFirstHalf", charH)
                 .addVertex(rowH, colH)
                 .addVertex(rowH + 1, colH + 1)
                 .addVertex(rowH + 2, colH + 2)
@@ -117,7 +117,7 @@ public class NeighborhoodSearch implements TextSearch {
         if (isDiagonalSecondHalfInvalid(dna.length, rowH, colH)) {
             return empty();
         }
-        for (int row = rowH + 1, col = colH - 1; row < rowH + SEQUENCE_COUNT - 1; row++, col--) {
+        for (int row = rowH + 1, col = colH - 1; row <= rowH + SEQUENCE_COUNT - 1; row++, col--) {
             String text = dna[row];
             char charDiagonal = text.charAt(col);
             if (charDiagonal != charH) {

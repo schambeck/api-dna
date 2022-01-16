@@ -20,7 +20,7 @@ class MutantServiceTest {
 
     @ParameterizedTest
     @CsvSource({
-            "CTGAGA;CTGAGC;TATTGT;AGAGGG;CCCCTA;TCACTG",
+            "CTGAGA;CTGATC;TATTGT;AGAGGG;CCCCTA;TCACTG",
             "TTTTTA;CTGAGC;TATTGT;AGAGGG;CCCCTA;TCACTG",
             "TAAGTAGAAC;GACTCCTTTT;GTTAATACAC;CACACTTCAG;GAACTCCATG;CCCGGTCCGT;TTGGCAACGC;ATCCATAGAC;CATGGAAGTT;GGAAGTACAA"})
     void isMutantHorizontal(String input) {
@@ -31,23 +31,8 @@ class MutantServiceTest {
 
     @ParameterizedTest
     @CsvSource({
-            "ATGAGAGAGA;" +
-                    "ATGAGCGAGA;" +
-                    "AAATGTGAGA;" +
-                    "TGGTAGAGAG;" +
-                    "TTGAGAGAGA;" +
-                    "TTGAGCGAGA;" +
-                    "TAATGTGAGA;" +
-                    "TGGTAGGAGA;" +
-                    "TCGCTAGAGA;" +
-                    "TCGCTGGAGA",
-
-            "CTGAGA;" +
-                    "CTGAGC;" +
-                    "TTGTGT;" +
-                    "ATGTAG;" +
-                    "CCGCTA;" +
-                    "TCGCTG"})
+            "ATGAGAGAGA;ATGAGCGAGA;AAATGTGAGA;TGGTAGAGAG;TTGAGAGAGA;TTGAGCGAGA;TAATGTGAGA;TGGTAGGAGA;TCGCTAGAGA;TCGCTGGAGA",
+            "CTGAGA;CTGAGC;TTGTGT;ATGTAG;CCGCTA;TCGCTG"})
     void isMutantVertical(String input) {
         String[] dna = input.split(";");
         boolean mutant = service.isMutant(dna);
@@ -56,21 +41,9 @@ class MutantServiceTest {
 
     @ParameterizedTest
     @CsvSource({
-            "CTGAGA;" +
-                    "CCAGGC;" +
-                    "TACTGT;" +
-                    "ATCCAG;" +
-                    "CCTCTA;" +
-                    "TCGTTG",
-
-            "CTGAGA;" +
-                    "CCAGGC;" +
-                    "TACTGT;" +
-                    "ATCCAG;" +
-                    "CCTCTA;" +
-                    "TCGTTG"
-    })
-    void isMutantDiagonalLeftRight(String input) {
+            "CTGAGA;CCAGGC;TACTGT;ATCCAG;CCTCTA;TCGTTG",
+            "CTGAGA;CCAGGC;TACTGT;ATCCAG;CCTCTA;TCGTTG"})
+    void isMutantDiagonalFirstHalf(String input) {
         String[] dna = input.split(";");
         boolean mutant = service.isMutant(dna);
         assertTrue(mutant);
@@ -78,21 +51,9 @@ class MutantServiceTest {
 
     @ParameterizedTest
     @CsvSource({
-            "CTGAGA;" +
-                    "CCAGGC;" +
-                    "TAATGT;" +
-                    "ATCCAG;" +
-                    "CCACTA;" +
-                    "TCGTTG",
-
-            "CTGAGA;" +
-                    "CCAGGC;" +
-                    "TAATGT;" +
-                    "AACCAG;" +
-                    "CCTCTA;" +
-                    "TCGTTG"
-    })
-    void isMutantDiagonalRightLeft(String input) {
+            "CTGAGA;CCAGGC;TAATTT;ATCCAG;CCACTA;TCGTTG",
+            "CTGAGA;CCATGC;TAATGT;AACCAG;CCTCTA;TCGTTG"})
+    void isMutantDiagonalSecondHalf(String input) {
         String[] dna = input.split(";");
         boolean mutant = service.isMutant(dna);
         assertTrue(mutant);
@@ -101,8 +62,7 @@ class MutantServiceTest {
     @ParameterizedTest
     @CsvSource({
             "ATGCGA;CAGTGC;TTCTTT;AGAAGG;GCGTCA;TCACTG",
-            "ATGCGA;CAGTGC;TTCTTT;AGAAGG;GGGTGA;TCACTG"
-    })
+            "ATGCGA;CAGTGC;TTCTTT;AGAAGG;GGGTGA;TCACTG"})
     void isHuman(String input) {
         String[] dna = input.split(";");
         boolean mutant = service.isMutant(dna);
