@@ -53,7 +53,9 @@ public final class DnaUtil {
     }
 
     public static void assertDna(Dna entity, Dna mockEntity) {
-        assertEquals(mockEntity.getId(), entity.getId());
+        if (mockEntity.getId() != null) {
+            assertEquals(mockEntity.getId(), entity.getId());
+        }
         assertArrayEquals(mockEntity.getDna(), entity.getDna());
         assertEquals(mockEntity.getMutant(), entity.getMutant());
         assertEquals(mockEntity.getHash(), entity.getHash());
