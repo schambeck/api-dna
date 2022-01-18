@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS dna (
+    id UUID PRIMARY KEY NOT NULL,
+    dna TEXT[] NOT NULL,
+    hash INTEGER NOT NULL,
+    mutant BOOLEAN NOT NULL
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_dna_hash ON dna (hash);
