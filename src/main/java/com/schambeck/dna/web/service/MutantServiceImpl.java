@@ -24,7 +24,7 @@ public class MutantServiceImpl implements MutantService {
             throw new DnaRequiredException("DNA is required");
         }
         validateSquare(dna);
-        return textSearch.search(dna);
+        return textSearch.contains(dna);
     }
 
     private void validateSquare(String[] dna) {

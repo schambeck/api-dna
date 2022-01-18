@@ -13,11 +13,15 @@ public class NeighborhoodSearch implements TextSearch {
     private static final int SEQUENCE_COUNT = 4;
 
     @Override
-    public boolean search(String[] dna) {
-        return searchImpl(dna).isPresent();
+    public boolean contains(String[] dna) {
+        return findFirst(dna).isPresent();
     }
 
-    private Optional<Match> searchImpl(String[] dna) {
+    @Override
+    public Optional<Match> findFirst(String[] dna) {
+        if (dna == null || dna.length == 0) {
+            return empty();
+        }
         for (int row = 0; row < dna.length; row++) {
             String text = dna[row];
             char previousChar = 0;
@@ -41,10 +45,10 @@ public class NeighborhoodSearch implements TextSearch {
                     countHorizontal++;
                     if (countHorizontal == SEQUENCE_COUNT - 1) {
                         return Optional.of(new Match("horizontal", charHorizontal)
-                                .addVertex(row, col)
-                                .addVertex(row, col - 1)
+                                .addVertex(row, col - 3)
                                 .addVertex(row, col - 2)
-                                .addVertex(row, col - 3));
+                                .addVertex(row, col - 1)
+                                .addVertex(row, col));
                     }
                 }
                 previousChar = charHorizontal;
@@ -54,7 +58,7 @@ public class NeighborhoodSearch implements TextSearch {
     }
 
     private Optional<Match> searchNearVertical(String[] dna, int rowH, int colH, char charH) {
-        if (isVerticalInvalid(dna.length, rowH, colH)) {
+        if (isVerticalInvalid(dna.length, rowH)) {
             return empty();
         }
         for (int row = rowH + 1; row < rowH + SEQUENCE_COUNT - 1; row++) {
@@ -71,24 +75,21 @@ public class NeighborhoodSearch implements TextSearch {
                 .addVertex(rowH + 3, colH));
     }
 
-    private boolean isVerticalInvalid(int dnaLength, int rowH, int colH) {
-        int firstRow = 0;
+    private boolean isVerticalInvalid(int dnaLength, int rowH) {
         int lastRow = dnaLength - SEQUENCE_COUNT;
-        int firstCol = 0;
-        int lastCol = dnaLength - 1;
-        return rowH < firstRow || rowH > lastRow || colH < firstCol || colH > lastCol;
+        return rowH > lastRow;
     }
 
     private Optional<Match> searchNearDiagonal(String[] dna, int row, int col, char charHorizontal) {
-        Optional<Match> matchFirstHalf = searchNearDiagonalFirstHalf(dna, row, col, charHorizontal);
-        if (matchFirstHalf.isPresent()) {
-            return matchFirstHalf;
+        Optional<Match> matchRight = searchNearDiagonalRight(dna, row, col, charHorizontal);
+        if (matchRight.isPresent()) {
+            return matchRight;
         }
-        return searchNearDiagonalSecondHalf(dna, row, col, charHorizontal);
+        return searchNearDiagonalLeft(dna, row, col, charHorizontal);
     }
 
-    private Optional<Match> searchNearDiagonalFirstHalf(String[] dna, int rowH, int colH, char charH) {
-        if (isDiagonalFirstHalfInvalid(dna.length, rowH, colH)) {
+    private Optional<Match> searchNearDiagonalRight(String[] dna, int rowH, int colH, char charH) {
+        if (isDiagonalRightInvalid(dna.length, rowH, colH)) {
             return empty();
         }
         for (int row = rowH + 1, col = colH + 1; row <= rowH + SEQUENCE_COUNT - 1; row++, col++) {
@@ -98,23 +99,21 @@ public class NeighborhoodSearch implements TextSearch {
                 return empty();
             }
         }
-        return Optional.of(new Match("diagonalFirstHalf", charH)
+        return Optional.of(new Match("diagonalRight", charH)
                 .addVertex(rowH, colH)
                 .addVertex(rowH + 1, colH + 1)
                 .addVertex(rowH + 2, colH + 2)
                 .addVertex(rowH + 3, colH + 3));
     }
 
-    private boolean isDiagonalFirstHalfInvalid(int dnaLength, int rowH, int colH) {
-        int firstRow = 0;
+    private boolean isDiagonalRightInvalid(int dnaLength, int rowH, int colH) {
         int lastRow = dnaLength - SEQUENCE_COUNT;
-        int firstCol = 0;
         int lastCol = dnaLength - SEQUENCE_COUNT;
-        return rowH < firstRow || rowH > lastRow || colH < firstCol || colH > lastCol;
+        return rowH > lastRow || colH > lastCol;
     }
 
-    private Optional<Match> searchNearDiagonalSecondHalf(String[] dna, int rowH, int colH, char charH) {
-        if (isDiagonalSecondHalfInvalid(dna.length, rowH, colH)) {
+    private Optional<Match> searchNearDiagonalLeft(String[] dna, int rowH, int colH, char charH) {
+        if (isDiagonalLeftInvalid(dna.length, rowH, colH)) {
             return empty();
         }
         for (int row = rowH + 1, col = colH - 1; row <= rowH + SEQUENCE_COUNT - 1; row++, col--) {
@@ -124,19 +123,18 @@ public class NeighborhoodSearch implements TextSearch {
                 return empty();
             }
         }
-        return Optional.of(new Match("diagonalSecondHalf", charH)
-                .addVertex(rowH + 3, colH - 3)
-                .addVertex(rowH + 2, colH - 2)
+        return Optional.of(new Match("diagonalLeft", charH)
+                .addVertex(rowH, colH)
                 .addVertex(rowH + 1, colH - 1)
-                .addVertex(rowH, colH));
+                .addVertex(rowH + 2, colH - 2)
+                .addVertex(rowH + 3, colH - 3)
+        );
     }
 
-    private boolean isDiagonalSecondHalfInvalid(int dnaLenght, int rowH, int colH) {
-        int firstRow = 0;
+    private boolean isDiagonalLeftInvalid(int dnaLenght, int rowH, int colH) {
         int lastRow = dnaLenght - SEQUENCE_COUNT;
         int firstCol = SEQUENCE_COUNT - 1;
-        int lastCol = dnaLenght - 1;
-        return rowH < firstRow || rowH > lastRow || colH < firstCol || colH > lastCol;
+        return rowH > lastRow || colH < firstCol;
     }
 
 }
