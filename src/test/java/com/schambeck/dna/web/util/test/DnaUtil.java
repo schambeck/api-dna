@@ -20,10 +20,14 @@ public final class DnaUtil {
     }
 
     public static Dna createDna(String[] dna) {
-        return new Dna(dna, null, null);
+        return createDna(dna, null, null);
     }
 
-    public static Dna createDna(String id, String[] dna, int hash, Boolean mutant) {
+    public static Dna createDna(String[] dna, Integer hash, Boolean mutant) {
+        return createDna(null, dna, hash, mutant);
+    }
+
+    public static Dna createDna(String id, String[] dna, Integer hash, Boolean mutant) {
         UUID uuid = id == null ? null : UUID.fromString(id);
         return new Dna(uuid, dna, hash, mutant);
     }
@@ -35,16 +39,24 @@ public final class DnaUtil {
         };
     }
 
-    public static void assertDna(Dna dnaEntity, String id, String[] dna, Boolean mutant) {
-        assertEquals(UUID.fromString(id), dnaEntity.getId());
-        assertArrayEquals(dna, dnaEntity.getDna());
-        assertEquals(mutant, dnaEntity.getMutant());
+    public static void assertDna(Dna dnaEntity, String[] dna, Boolean mutant, Integer hash) {
+        assertDna(dnaEntity, null, dna, mutant, hash);
+    }
+
+    public static void assertDna(Dna dnaEntity, String id, String[] dna, Boolean mutant, Integer hash) {
+        UUID uuid = null;
+        if (id != null) {
+            uuid = UUID.fromString(id);
+        }
+        Dna mock = new Dna(uuid, dna, hash, mutant);
+        assertDna(dnaEntity, mock);
     }
 
     public static void assertDna(Dna entity, Dna mockEntity) {
         assertEquals(mockEntity.getId(), entity.getId());
         assertArrayEquals(mockEntity.getDna(), entity.getDna());
         assertEquals(mockEntity.getMutant(), entity.getMutant());
+        assertEquals(mockEntity.getHash(), entity.getHash());
     }
 
 }
