@@ -1,6 +1,6 @@
 package com.schambeck.dna.web.domain;
 
-import com.schambeck.dna.notcovered.util.HashUtil;
+import com.schambeck.dna.web.util.HashUtil;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

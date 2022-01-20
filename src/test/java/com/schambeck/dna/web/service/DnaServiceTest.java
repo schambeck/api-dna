@@ -1,6 +1,6 @@
 package com.schambeck.dna.web.service;
 
-import com.schambeck.dna.notcovered.util.HashUtil;
+import com.schambeck.dna.web.util.HashUtil;
 import com.schambeck.dna.web.domain.Dna;
 import com.schambeck.dna.web.dto.QueryStatsDto;
 import com.schambeck.dna.web.dto.StatsDto;
@@ -41,11 +41,8 @@ class DnaServiceTest {
         Dna entity = createDna(new String[]{"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"});
         Dna mockEntity = createDna("18988518-c010-451b-8489-b14d92a0afd8", entity.getDna(), "10", true);
         when(repository.save(entity)).thenReturn(mockEntity);
-        String hash = HashUtil.getInstance().hash(entity.getDna());
-        when(repository.existsByHash(hash)).thenReturn(false);
-        when(mutantService.isMutant(entity.getDna())).thenReturn(true);
 
-        Dna created = service.create(entity.getDna());
+        Dna created = service.create(entity.getDna(), mockEntity.getHash(), mockEntity.getMutant());
         assertDna(created, mockEntity);
     }
 

@@ -1,6 +1,6 @@
 package com.schambeck.dna.web.repository;
 
-import com.schambeck.dna.notcovered.util.HashUtil;
+import com.schambeck.dna.web.util.HashUtil;
 import com.schambeck.dna.web.domain.Dna;
 import com.schambeck.dna.web.dto.QueryStatsDto;
 import com.schambeck.dna.web.util.DnaPostgresqlContainer;
