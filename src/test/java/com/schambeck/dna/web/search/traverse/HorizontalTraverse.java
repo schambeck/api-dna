@@ -3,7 +3,7 @@ package com.schambeck.dna.web.search.traverse;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.schambeck.dna.notcovered.util.RandomStringUtil.randomDnaNoSequence;
+import static com.schambeck.dna.web.util.RandomStringUtil.randomDnaNoSequence;
 import static com.schambeck.dna.web.util.DnaUtil.SEQUENCE_COUNT;
 
 public class HorizontalTraverse {
