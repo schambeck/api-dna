@@ -16,19 +16,19 @@ CREATE_ENDPOINT = ${BASE_URL}/mutant
 PAYLOAD = ${AB_FOLDER}/dna-10.json
 
 clean:
-	mvn clean
+	./mvnw clean
 
 all: clean
-	mvn compile
+	./mvnw compile
 
 install: clean
-	mvn install
+	./mvnw install
 
 check: clean
-	mvn verify
+	./mvnw verify
 
 dist: clean
-	mvn package -DskipTests
+	./mvnw package -DskipTests
 
 dist-run: dist run
 
