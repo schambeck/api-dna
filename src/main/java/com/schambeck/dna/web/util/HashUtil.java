@@ -6,17 +6,16 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import static java.lang.String.format;
 
-public class HashUtil {
+public final class HashUtil {
 
-    static final String SHA_256 = "SHA-256";
+    private static final String SHA_256 = "SHA-256";
     private static HashUtil INSTANCE;
     private final MessageDigest digest;
 
-    HashUtil(String algorithm) {
+    private HashUtil(String algorithm) {
         try {
             digest = MessageDigest.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
@@ -63,7 +62,7 @@ public class HashUtil {
             oos.writeObject(dna);
             oos.flush();
         } catch (IOException e) {
-            throw new RuntimeException(format("Fail to convert string array to bytes: %s", Arrays.toString(dna)));
+            throw new RuntimeException("Fail to convert string array to bytes");
         }
     }
 

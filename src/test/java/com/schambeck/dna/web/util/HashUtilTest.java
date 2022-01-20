@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
 
-import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -39,7 +37,7 @@ class HashUtilTest {
             }
         };
         RuntimeException ex = assertThrows(RuntimeException.class, () -> HashUtil.getInstance().writeBytes(dna, os));
-        String expected = format("Fail to convert string array to bytes: %s", Arrays.toString(dna));
+        String expected = "Fail to convert string array to bytes";
         String actual = ex.getMessage();
         assertEquals(actual, expected);
     }
