@@ -5,12 +5,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.schambeck.dna.web.util.DnaUtil.SEQUENCE_COUNT;
 import static java.util.Optional.empty;
 
 @Service
 public class NeighborhoodSearch implements TextSearch {
-
-    private static final int SEQUENCE_COUNT = 4;
 
     @Override
     public boolean contains(String[] dna) {
