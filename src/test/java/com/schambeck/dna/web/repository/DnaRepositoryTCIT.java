@@ -1,5 +1,6 @@
 package com.schambeck.dna.web.repository;
 
+import com.schambeck.dna.notcovered.util.HashUtil;
 import com.schambeck.dna.web.domain.Dna;
 import com.schambeck.dna.web.dto.QueryStatsDto;
 import com.schambeck.dna.web.util.DnaPostgresqlContainer;
@@ -13,7 +14,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.schambeck.dna.web.util.test.DnaUtil.assertDna;
@@ -36,7 +36,7 @@ class DnaRepositoryTCIT {
     @Transactional
     void createMutant() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        Dna entity = createDna(dna, Arrays.hashCode(dna), true);
+        Dna entity = createDna(dna, HashUtil.getInstance().hash(dna), true);
         Dna created = repository.save(entity);
         assertNotNull(created);
         assertNotNull(created.getId());
@@ -47,7 +47,7 @@ class DnaRepositoryTCIT {
     @Transactional
     void createHuman() {
         String[] dna = {"ATGCGA", "CAGTGC", "TTCTTT", "AGAAGG", "GCGTCA", "TCACTG"};
-        Dna entity = createDna(dna, Arrays.hashCode(dna), false);
+        Dna entity = createDna(dna, HashUtil.getInstance().hash(dna), false);
         Dna created = repository.save(entity);
         assertNotNull(created);
         assertNotNull(created.getId());
@@ -58,9 +58,9 @@ class DnaRepositoryTCIT {
     @Transactional
     void createConflict() {
         String[] dna = new String[]{"ATGCGA", "CAGTGC", "TTCTTT", "AGAAGG", "GCGTCA", "TCACTT"};
-        Dna entity1 = createDna(dna, Arrays.hashCode(dna), true);
+        Dna entity1 = createDna(dna, HashUtil.getInstance().hash(dna), true);
         repository.save(entity1);
-        Dna entity2 = createDna(dna, Arrays.hashCode(dna), true);
+        Dna entity2 = createDna(dna, HashUtil.getInstance().hash(dna), true);
         String message = "could not execute statement; SQL [n/a]; constraint [idx_dna_hash]";
         ConstraintViolationException cause = new ConstraintViolationException(message, null, "idx_dna_hash");
         DataIntegrityViolationException ex = assertThrows(DataIntegrityViolationException.class, () -> {
@@ -75,7 +75,7 @@ class DnaRepositoryTCIT {
     @Test
     void existsByHashTrue() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACAG"};
-        Dna entity = createDna(dna, Arrays.hashCode(dna), true);
+        Dna entity = createDna(dna, HashUtil.getInstance().hash(dna), true);
         Dna created = repository.save(entity);
         assertNotNull(created);
         assertNotNull(created.getId());
@@ -87,7 +87,7 @@ class DnaRepositoryTCIT {
     @Test
     void existsByHashFalse() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        Dna entity = createDna(dna, Arrays.hashCode(dna), true);
+        Dna entity = createDna(dna, HashUtil.getInstance().hash(dna), true);
         Dna created = repository.save(entity);
         assertNotNull(created);
         assertNotNull(created.getId());
@@ -95,7 +95,7 @@ class DnaRepositoryTCIT {
         boolean exists = repository.existsByHash(created.getHash());
         assertTrue(exists);
         String[] dnaNotExists = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CAACTA", "TCACCC"};
-        boolean notExists = repository.existsByHash(Arrays.hashCode(dnaNotExists));
+        boolean notExists = repository.existsByHash(HashUtil.getInstance().hash(dnaNotExists));
         assertFalse(notExists);
     }
 
@@ -119,7 +119,7 @@ class DnaRepositoryTCIT {
     }
 
     private void save(String[] dna, boolean mutant) {
-        Dna entity = createDna(dna, Arrays.hashCode(dna), mutant);
+        Dna entity = createDna(dna, HashUtil.getInstance().hash(dna), mutant);
         Dna created = repository.save(entity);
         assertNotNull(created);
         assertNotNull(created.getId());

@@ -28,7 +28,7 @@ public class Dna {
     private String[] dna;
 
     @NotNull(message = "Hash is mandatory")
-    private Integer hash;
+    private String hash;
 
     @NotNull(message = "Mutant flag is mandatory")
     private Boolean mutant;
@@ -36,11 +36,11 @@ public class Dna {
     public Dna() {
     }
 
-    public Dna(String[] dna, Integer hash, Boolean mutant) {
+    public Dna(String[] dna, String hash, Boolean mutant) {
         this(null, dna, hash, mutant);
     }
 
-    public Dna(UUID id, String[] dna, Integer hash, Boolean mutant) {
+    public Dna(UUID id, String[] dna, String hash, Boolean mutant) {
         this.id = id;
         this.dna = dna;
         this.hash = hash;
@@ -55,7 +55,7 @@ public class Dna {
         return dna;
     }
 
-    public Integer getHash() {
+    public String getHash() {
         return hash;
     }
 
@@ -67,7 +67,7 @@ public class Dna {
         this.dna = dna;
     }
 
-    public void setHash(Integer hash) {
+    public void setHash(String hash) {
         this.hash = hash;
     }
 

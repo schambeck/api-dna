@@ -1,5 +1,6 @@
 package com.schambeck.dna.web.service;
 
+import com.schambeck.dna.notcovered.util.HashUtil;
 import com.schambeck.dna.web.domain.Dna;
 import com.schambeck.dna.web.dto.QueryStatsDto;
 import com.schambeck.dna.web.dto.StatsDto;
@@ -38,22 +39,22 @@ class DnaServiceTest {
     @Test
     void create() {
         Dna entity = createDna(new String[]{"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"});
-        Dna mockEntity = createDna("18988518-c010-451b-8489-b14d92a0afd8", entity.getDna(), 10, true);
+        Dna mockEntity = createDna("18988518-c010-451b-8489-b14d92a0afd8", entity.getDna(), "10", true);
         when(repository.save(entity)).thenReturn(mockEntity);
-        int hash = Arrays.hashCode(entity.getDna());
+        String hash = HashUtil.getInstance().hash(entity.getDna());
         when(repository.existsByHash(hash)).thenReturn(false);
         when(mutantService.isMutant(entity.getDna())).thenReturn(true);
 
-        Dna created = service.create(entity.getDna(), mockEntity.getHash(), mockEntity.getMutant());
+        Dna created = service.create(entity.getDna());
         assertDna(created, mockEntity);
     }
 
     @Test
     void createMutant() {
         Dna entity = createDna(new String[]{"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"});
-        Dna mockEntity = createDna("18988518-c010-451b-8489-b14d92a0afd8", entity.getDna(), 10, true);
+        Dna mockEntity = createDna("18988518-c010-451b-8489-b14d92a0afd8", entity.getDna(), "10", true);
         when(repository.save(entity)).thenReturn(mockEntity);
-        int hash = Arrays.hashCode(entity.getDna());
+        String hash = HashUtil.getInstance().hash(entity.getDna());
         when(repository.existsByHash(hash)).thenReturn(false);
         when(mutantService.isMutant(entity.getDna())).thenReturn(true);
 
@@ -64,8 +65,8 @@ class DnaServiceTest {
     @Test
     void createHuman() {
         Dna entity = createDna(new String[]{"ATGCGA", "CAGTGC", "TTCTTT", "AGAAGG", "GCGTCA", "TCACTG"});
-        Dna mockEntity = createDna("18988518-c010-451b-8489-b14d92a0afd8", entity.getDna(), 10, false);
-        int hash = Arrays.hashCode(entity.getDna());
+        Dna mockEntity = createDna("18988518-c010-451b-8489-b14d92a0afd8", entity.getDna(), "10", false);
+        String hash = HashUtil.getInstance().hash(entity.getDna());
         when(repository.existsByHash(hash)).thenReturn(false);
         when(mutantService.isMutant(entity.getDna())).thenReturn(false);
         when(repository.save(entity)).thenReturn(mockEntity);
@@ -78,7 +79,7 @@ class DnaServiceTest {
     void createConflict() {
         Dna dna = createDna(new String[]{"ATGCGA", "CAGTGC", "TTCTTT", "AGAAGG", "GCGTCA", "TCACTG"});
         String message = "Dna already exists";
-        int hash = Arrays.hashCode(dna.getDna());
+        String hash = HashUtil.getInstance().hash(dna.getDna());
         when(repository.existsByHash(hash)).thenReturn(false);
         when(repository.save(dna)).thenThrow(new MutantAlreadyExistsException(message));
 
@@ -92,7 +93,7 @@ class DnaServiceTest {
     @Test
     void createConflictExistsByHash() {
         Dna dna = createDna(new String[]{"ATGCGA", "CAGTGC", "TTCTTT", "AGAAGG", "GCGTCA", "TCACTG"});
-        int hash = Arrays.hashCode(dna.getDna());
+        String hash = HashUtil.getInstance().hash(dna.getDna());
         when(repository.existsByHash(hash)).thenReturn(true);
 
         MutantAlreadyExistsException ex = assertThrows(MutantAlreadyExistsException.class, () -> service.create(dna.getDna()));
@@ -105,7 +106,7 @@ class DnaServiceTest {
     void createConflictNotDataIntegrityViolation() {
         Dna dna = createDna(new String[]{"ATGCGA", "CAGTGC", "TTCTTT", "AGAAGG", "GCGTCA", "TCACTG"});
         String message = "Dna already exists";
-        int hash = Arrays.hashCode(dna.getDna());
+        String hash = HashUtil.getInstance().hash(dna.getDna());
         when(repository.existsByHash(hash)).thenReturn(false);
         RuntimeException cause = new RuntimeException();
         DataIntegrityViolationException dataIntegrityViolation = new DataIntegrityViolationException(message, cause);

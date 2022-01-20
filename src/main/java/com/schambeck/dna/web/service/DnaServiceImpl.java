@@ -1,5 +1,6 @@
 package com.schambeck.dna.web.service;
 
+import com.schambeck.dna.notcovered.util.HashUtil;
 import com.schambeck.dna.web.domain.Dna;
 import com.schambeck.dna.web.dto.QueryStatsDto;
 import com.schambeck.dna.web.dto.StatsDto;
@@ -8,7 +9,6 @@ import com.schambeck.dna.web.repository.DnaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -24,7 +24,7 @@ public class DnaServiceImpl implements DnaService {
 
     @Override
     public Dna create(String[] dna) {
-        int hash = Arrays.hashCode(dna);
+        String hash = HashUtil.getInstance().hash(dna);
         boolean exists = repository.existsByHash(hash);
         if (exists) {
             throw new MutantAlreadyExistsException("Dna already exists");
@@ -35,7 +35,7 @@ public class DnaServiceImpl implements DnaService {
 
     @Override
     @Transactional
-    public Dna create(String[] dna, int hash, boolean mutant) {
+    public Dna create(String[] dna, String hash, boolean mutant) {
         Dna entity = new Dna(dna, hash, mutant);
         return repository.save(entity);
     }

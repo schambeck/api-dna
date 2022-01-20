@@ -7,7 +7,7 @@ public interface DnaService {
 
     Dna create(String[] dna);
 
-    Dna create(String[] dna, int hash, boolean mutant);
+    Dna create(String[] dna, String hash, boolean mutant);
 
     StatsDto stats();
 

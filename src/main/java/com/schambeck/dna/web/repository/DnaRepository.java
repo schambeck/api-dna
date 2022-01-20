@@ -20,6 +20,6 @@ public interface DnaRepository extends JpaRepository<Dna, UUID> {
     List<QueryStatsDto> stats();
 
     @Transactional(propagation = SUPPORTS, readOnly = true)
-    boolean existsByHash(int hash);
+    boolean existsByHash(String hash);
 
 }

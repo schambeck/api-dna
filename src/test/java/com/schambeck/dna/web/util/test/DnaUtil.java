@@ -23,11 +23,11 @@ public final class DnaUtil {
         return createDna(dna, null, null);
     }
 
-    public static Dna createDna(String[] dna, Integer hash, Boolean mutant) {
+    public static Dna createDna(String[] dna, String hash, Boolean mutant) {
         return createDna(null, dna, hash, mutant);
     }
 
-    public static Dna createDna(String id, String[] dna, Integer hash, Boolean mutant) {
+    public static Dna createDna(String id, String[] dna, String hash, Boolean mutant) {
         UUID uuid = id == null ? null : UUID.fromString(id);
         return new Dna(uuid, dna, hash, mutant);
     }
@@ -39,11 +39,11 @@ public final class DnaUtil {
         };
     }
 
-    public static void assertDna(Dna dnaEntity, String[] dna, Boolean mutant, Integer hash) {
+    public static void assertDna(Dna dnaEntity, String[] dna, Boolean mutant, String hash) {
         assertDna(dnaEntity, null, dna, mutant, hash);
     }
 
-    public static void assertDna(Dna dnaEntity, String id, String[] dna, Boolean mutant, Integer hash) {
+    public static void assertDna(Dna dnaEntity, String id, String[] dna, Boolean mutant, String hash) {
         UUID uuid = null;
         if (id != null) {
             uuid = UUID.fromString(id);

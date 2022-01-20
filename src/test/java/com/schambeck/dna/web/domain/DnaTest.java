@@ -1,8 +1,7 @@
 package com.schambeck.dna.web.domain;
 
+import com.schambeck.dna.notcovered.util.HashUtil;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,14 +10,14 @@ class DnaTest {
     @Test
     void testHashCode() {
         String[] dnaExpected = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        int hashExpected = Arrays.hashCode(dnaExpected);
+        String hashExpected = HashUtil.getInstance().hash(dnaExpected);
         Dna dnaEntityExpected = new Dna();
         dnaEntityExpected.setDna(dnaExpected);
         dnaEntityExpected.setHash(hashExpected);
         dnaEntityExpected.setMutant(true);
 
         String[] dnaActual = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        int hashActual = Arrays.hashCode(dnaActual);
+        String hashActual = HashUtil.getInstance().hash(dnaActual);
         Dna dnaEntityActual = new Dna();
         dnaEntityActual.setDna(dnaActual);
         dnaEntityActual.setHash(hashActual);
@@ -32,21 +31,21 @@ class DnaTest {
     @Test
     void testHash() {
         String[] dnaExpected = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        int hashExpected = Arrays.hashCode(dnaExpected);
+        String hashExpected = HashUtil.getInstance().hash(dnaExpected);
         Dna dnaEntityExpected = new Dna();
         dnaEntityExpected.setDna(dnaExpected);
         dnaEntityExpected.setHash(hashExpected);
         dnaEntityExpected.setMutant(true);
 
         String[] dnaActual = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        int hashActual = Arrays.hashCode(dnaActual);
+        String hashActual = HashUtil.getInstance().hash(dnaActual);
         Dna dnaEntityActual = new Dna();
         dnaEntityActual.setDna(dnaActual);
         dnaEntityActual.setHash(hashActual);
         dnaEntityActual.setMutant(true);
 
-        int expected = dnaEntityExpected.getHash();
-        int actual = dnaEntityActual.getHash();
+        String expected = dnaEntityExpected.getHash();
+        String actual = dnaEntityActual.getHash();
         assertEquals(expected, actual);
     }
 

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS dna (
     id UUID PRIMARY KEY NOT NULL,
     dna TEXT[] NOT NULL,
-    hash INTEGER NOT NULL,
+    hash CHAR(64) NOT NULL,
     mutant BOOLEAN NOT NULL
 );
 
