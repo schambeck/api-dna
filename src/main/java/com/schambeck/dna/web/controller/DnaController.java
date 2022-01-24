@@ -6,6 +6,7 @@ import com.schambeck.dna.web.dto.PayloadDnaDto;
 import com.schambeck.dna.web.dto.StatsDto;
 import com.schambeck.dna.web.exception.MutantAlreadyExistsException;
 import com.schambeck.dna.web.service.DnaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +26,15 @@ class DnaController {
     }
 
     @PostMapping
-    @ResponseStatus(CREATED)
-    DnaDto create(@RequestBody @Valid PayloadDnaDto payload) {
+    ResponseEntity<DnaDto> create(@RequestBody @Valid PayloadDnaDto payload) {
         String[] dna = payload.getDna();
         Dna created = service.create(dna);
-        return new DnaDto(created.getId(), created.getDna(), created.getMutant());
+        DnaDto representation = new DnaDto(created.getId(), created.getDna());
+        if (created.getMutant()) {
+            return ResponseEntity.ok(representation);
+        } else {
+            return ResponseEntity.status(FORBIDDEN).body(representation);
+        }
     }
 
     @GetMapping("/stats")
