@@ -60,7 +60,7 @@ public class NeighborhoodSearch implements TextSearch {
         if (isVerticalInvalid(dna.length, rowH)) {
             return empty();
         }
-        for (int row = rowH + 1; row < rowH + SEQUENCE_COUNT - 1; row++) {
+        for (int row = rowH + 1; row <= rowH + SEQUENCE_COUNT - 1; row++) {
             String text = dna[row];
             char charVertical = text.charAt(colH);
             if (charVertical != charH) {
