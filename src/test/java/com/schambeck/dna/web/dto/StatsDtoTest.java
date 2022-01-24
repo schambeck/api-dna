@@ -52,4 +52,14 @@ class StatsDtoTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    void getRatioNull() {
+        StatsDto stats = new StatsDto();
+        stats.setCountMutantDna(null);
+        stats.setCountHumanDna(null);
+        BigDecimal expected = new BigDecimal("0.00");
+        BigDecimal actual = stats.getRatio();
+        assertEquals(expected, actual);
+    }
+
 }

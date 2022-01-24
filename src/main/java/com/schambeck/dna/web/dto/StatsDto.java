@@ -35,11 +35,11 @@ public class StatsDto {
     }
 
     public BigDecimal getRatio() {
-        if (countHumanDna == null) {
-            return HUNDRED;
-        }
         if (countMutantDna == null || countMutantDna == 0) {
             return ZERO;
+        }
+        if (countHumanDna == null || countHumanDna == 0) {
+            return HUNDRED;
         }
         return new BigDecimal(countHumanDna).divide(new BigDecimal(countMutantDna), SCALE, HALF_UP);
     }
