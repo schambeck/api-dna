@@ -125,7 +125,7 @@ class DnaServiceTest {
         when(repository.stats()).thenReturn(queryStats);
 
         StatsDto found = service.stats();
-        assertStatsDto(found, countMutantDna, countHumanDna, "6.00");
+        assertStatsDto(found, countMutantDna, countHumanDna, "0.17");
     }
 
 }

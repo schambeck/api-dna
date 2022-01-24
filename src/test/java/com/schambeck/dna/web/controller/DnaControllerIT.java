@@ -2,6 +2,7 @@ package com.schambeck.dna.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schambeck.dna.web.domain.Dna;
+import com.schambeck.dna.web.dto.DnaDto;
 import com.schambeck.dna.web.dto.PayloadDnaDto;
 import com.schambeck.dna.web.dto.StatsDto;
 import com.schambeck.dna.web.exception.DnaRequiredException;
@@ -9,7 +10,6 @@ import com.schambeck.dna.web.exception.MutantAlreadyExistsException;
 import com.schambeck.dna.web.exception.NotSquareException;
 import com.schambeck.dna.web.service.DnaServiceImpl;
 import org.hibernate.exception.ConstraintViolationException;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,7 +26,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Tag("integration")
 @WebMvcTest(DnaController.class)
 class DnaControllerIT {
 
@@ -43,13 +42,14 @@ class DnaControllerIT {
     void createMutant() throws Exception {
         PayloadDnaDto payload = createPayloadDnaDto(new String[]{"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"});
         Dna mockDna = createDna("18988518-c010-451b-8489-b14d92a0afd8", payload.getDna(), "10", true);
+        DnaDto dto = createDnaDto(mockDna.getId(), mockDna.getDna());
         when(service.create(payload.getDna())).thenReturn(mockDna);
 
         mockMvc.perform(post("/mutant")
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(payload)))
-                .andExpect(status().isCreated())
-                .andExpectAll(assertDnaDto(mockDna));
+                .andExpect(status().isOk())
+                .andExpectAll(assertDnaDto(dto));
 
         verify(service).create(payload.getDna());
     }
@@ -58,13 +58,14 @@ class DnaControllerIT {
     void createHuman() throws Exception {
         PayloadDnaDto payload = createPayloadDnaDto(new String[]{"ATGCGA", "CAGTGC", "TTCTTT", "AGAAGG", "GCGTCA", "TCACTG"});
         Dna mockDna = createDna("9bfed197-f6eb-4910-b0c6-c615b8385bee", payload.getDna(), "20", false);
+        DnaDto dto = createDnaDto(mockDna.getId(), mockDna.getDna());
         when(service.create(payload.getDna())).thenReturn(mockDna);
 
         mockMvc.perform(post("/mutant")
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(payload)))
-                .andExpect(status().isCreated())
-                .andExpectAll(assertDnaDto(mockDna));
+                .andExpect(status().isForbidden())
+                .andExpectAll(assertDnaDto(dto));
 
         verify(service).create(payload.getDna());
     }
@@ -153,7 +154,7 @@ class DnaControllerIT {
         mockMvc.perform(get("/mutant/stats")
                         .accept(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpectAll(assertStatsDto(100, 600, "6.0"));
+                .andExpectAll(assertStatsDto(100, 600, "0.17"));
 
         verify(service).stats();
     }

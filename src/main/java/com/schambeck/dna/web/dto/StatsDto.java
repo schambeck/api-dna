@@ -41,7 +41,7 @@ public class StatsDto {
         if (countHumanDna == null || countHumanDna == 0) {
             return HUNDRED;
         }
-        return new BigDecimal(countHumanDna).divide(new BigDecimal(countMutantDna), SCALE, HALF_UP);
+        return new BigDecimal(countMutantDna).divide(new BigDecimal(countHumanDna), SCALE, HALF_UP);
     }
 
     public void setCountMutantDna(Long countMutantDna) {

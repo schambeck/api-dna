@@ -27,7 +27,7 @@ class StatsDtoTest {
         StatsDto stats = new StatsDto();
         stats.setCountMutantDna(100L);
         stats.setCountHumanDna(600L);
-        BigDecimal expected = new BigDecimal("6.00");
+        BigDecimal expected = new BigDecimal("0.17");
         BigDecimal actual = stats.getRatio();
         assertEquals(expected, actual);
     }
