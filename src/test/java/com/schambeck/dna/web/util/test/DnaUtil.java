@@ -1,6 +1,7 @@
 package com.schambeck.dna.web.util.test;
 
 import com.schambeck.dna.web.domain.Dna;
+import com.schambeck.dna.web.dto.DnaDto;
 import com.schambeck.dna.web.dto.PayloadDnaDto;
 import org.springframework.test.web.servlet.ResultMatcher;
 
@@ -32,10 +33,13 @@ public final class DnaUtil {
         return new Dna(uuid, dna, hash, mutant);
     }
 
-    public static ResultMatcher[] assertDnaDto(Dna dna) {
+    public static DnaDto createDnaDto(UUID id, String[] dna) {
+        return new DnaDto(id, dna);
+    }
+
+    public static ResultMatcher[] assertDnaDto(DnaDto dna) {
         return new ResultMatcher[] {
-                jsonPath("$.id").value(dna.getId().toString()),
-                jsonPath("$.mutant").value(dna.getMutant())
+                jsonPath("$.id").value(dna.getId().toString())
         };
     }
 
