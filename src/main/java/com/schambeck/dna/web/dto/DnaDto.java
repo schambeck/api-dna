@@ -9,15 +9,13 @@ public class DnaDto {
 
     private UUID id;
     private String[] dna;
-    private Boolean mutant;
 
     public DnaDto() {
     }
 
-    public DnaDto(UUID id, String[] dna, Boolean mutant) {
+    public DnaDto(UUID id, String[] dna) {
         this.id = id;
         this.dna = dna;
-        this.mutant = mutant;
     }
 
     public UUID getId() {
@@ -35,14 +33,6 @@ public class DnaDto {
 
     void setDna(String[] dna) {
         this.dna = dna;
-    }
-
-    public Boolean isMutant() {
-        return mutant;
-    }
-
-    void setMutant(Boolean mutant) {
-        this.mutant = mutant;
     }
 
     @Override
