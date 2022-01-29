@@ -1,6 +1,9 @@
 package com.schambeck.dna.web.util;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -8,9 +11,11 @@ import java.io.OutputStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class HashUtilTest {
 
     @Test
+    @Order(1)
     void createHash() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
         String actual = HashUtil.getInstance().hash(dna);
@@ -19,6 +24,7 @@ class HashUtilTest {
     }
 
     @Test
+    @Order(0)
     void createHashInvalidAlgorithm() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
         RuntimeException ex = assertThrows(RuntimeException.class, () -> HashUtil.getInstance("INVALID").hash(dna));
@@ -28,6 +34,7 @@ class HashUtilTest {
     }
 
     @Test
+    @Order(2)
     void createHashIOException() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
         OutputStream os = new OutputStream() {
