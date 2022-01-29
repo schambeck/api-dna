@@ -46,7 +46,7 @@ The REST API to the DNA app is described below.
 
 `POST /mutant`
 
-    curl -d '{"dna": ["AAATTT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST http://ec2-54-167-218-58.compute-1.amazonaws.com:4000/mutant
+    curl -d '{"dna": ["AAAATT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST http://ec2-54-167-218-58.compute-1.amazonaws.com:4000/mutant
 
 #### Response
 
