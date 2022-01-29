@@ -15,15 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class HashUtilTest {
 
     @Test
-    @Order(1)
-    void createHash() {
-        String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        String actual = HashUtil.getInstance().hash(dna);
-        String expected = "87DDB4DC78AA028ECD0379B6EF0058435012B13F18D3CA0294ADFA1DC8F3BEED";
-        assertEquals(expected, actual);
-    }
-
-    @Test
     @Order(0)
     void createHashInvalidAlgorithm() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
@@ -31,6 +22,15 @@ class HashUtilTest {
         String expected = "Fail to create new MessageDigest of INVALID";
         String actual = ex.getMessage();
         assertEquals(actual, expected);
+    }
+
+    @Test
+    @Order(1)
+    void createHash() {
+        String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
+        String actual = HashUtil.getInstance().hash(dna);
+        String expected = "87DDB4DC78AA028ECD0379B6EF0058435012B13F18D3CA0294ADFA1DC8F3BEED";
+        assertEquals(expected, actual);
     }
 
     @Test
