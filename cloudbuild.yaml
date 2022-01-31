@@ -7,8 +7,6 @@ steps:
     args: ["package", "-Dmaven.test.skip=true"]
   - name: gcr.io/cloud-builders/docker
     args: ["build", "-f", "src/main/docker/Dockerfile", "-t", "gcr.io/$PROJECT_ID/dna-web:latest", "--build-arg=JAR_FILE=target/dna-web-0.0.1-SNAPSHOT.jar", "."]
-  - name: docker/compose:1.29.2
-    args: ["-f", "src/main/docker/docker-compose.yml", "up", "-d"]
     env:
-      - PROJECT_ID=$PROJECT_ID
+      - spring_profiles_active=h2
 images: ["gcr.io/$PROJECT_ID/dna-web:latest"]
