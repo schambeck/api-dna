@@ -11,23 +11,23 @@ class DnaDtoTest {
     @Test
     void testEquals() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        DnaDto expected = new DnaDto(UUID.fromString("5df74347-2736-4543-a155-5dbcee0b2294"), dna);
-        DnaDto actual = new DnaDto(UUID.fromString("66b2aad9-3b7d-462a-9640-525f3997057a"), dna);
+        DnaDto expected = new DnaDto(UUID.fromString("5df74347-2736-4543-a155-5dbcee0b2294"), dna, "BD454CC8491236619297218526CCEE9EFAD48E158FD10313F92595E60A80CB3E", true);
+        DnaDto actual = new DnaDto(UUID.fromString("66b2aad9-3b7d-462a-9640-525f3997057a"), dna, "BD454CC8491236619297218526CCEE9EFAD48E158FD10313F92595E60A80CB3E", true);
         assertEquals(expected, actual);
     }
 
     @Test
     void testNotEquals() {
-        DnaDto expected = new DnaDto(UUID.fromString("7724d3d6-b2d4-4433-9d1f-9665ddd337aa"), new String[]{"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"});
-        DnaDto actual = new DnaDto(UUID.fromString("72a1009f-95b9-455c-b3c7-5918047136e2"), new String[]{"TTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"});
+        DnaDto expected = new DnaDto(UUID.fromString("7724d3d6-b2d4-4433-9d1f-9665ddd337aa"), new String[]{"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"}, "BD454CC8491236619297218526CCEE9EFAD48E158FD10313F92595E60A80CB3E", true);
+        DnaDto actual = new DnaDto(UUID.fromString("72a1009f-95b9-455c-b3c7-5918047136e2"), new String[]{"TTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"}, "BD454CC8491236619297218526CCEE9EFAD48E158FD10313F92595E60A80CB3E", true);
         assertNotEquals(expected, actual);
     }
 
     @Test
     void testGetters() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        DnaDto expected = new DnaDto(UUID.fromString("66b2aad9-3b7d-462a-9640-525f3997057a"), dna);
-        DnaDto actual = new DnaDto(UUID.fromString("66b2aad9-3b7d-462a-9640-525f3997057a"), dna);
+        DnaDto expected = new DnaDto(UUID.fromString("66b2aad9-3b7d-462a-9640-525f3997057a"), dna, "BD454CC8491236619297218526CCEE9EFAD48E158FD10313F92595E60A80CB3E", true);
+        DnaDto actual = new DnaDto(UUID.fromString("66b2aad9-3b7d-462a-9640-525f3997057a"), dna, "BD454CC8491236619297218526CCEE9EFAD48E158FD10313F92595E60A80CB3E", true);
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getDna(), actual.getDna());
     }

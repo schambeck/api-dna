@@ -42,7 +42,7 @@ class DnaControllerIT {
     void createMutant() throws Exception {
         PayloadDnaDto payload = createPayloadDnaDto(new String[]{"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"});
         Dna mockDna = createDna("18988518-c010-451b-8489-b14d92a0afd8", payload.getDna(), "10", true);
-        DnaDto dto = createDnaDto(mockDna.getId(), mockDna.getDna());
+        DnaDto dto = createDnaDto(mockDna.getId(), mockDna.getDna(), mockDna.getHash(), mockDna.getMutant());
         when(service.create(payload.getDna())).thenReturn(mockDna);
 
         mockMvc.perform(post("/mutant")
@@ -58,7 +58,7 @@ class DnaControllerIT {
     void createHuman() throws Exception {
         PayloadDnaDto payload = createPayloadDnaDto(new String[]{"ATGCGA", "CAGTGC", "TTCTTT", "AGAAGG", "GCGTCA", "TCACTG"});
         Dna mockDna = createDna("9bfed197-f6eb-4910-b0c6-c615b8385bee", payload.getDna(), "20", false);
-        DnaDto dto = createDnaDto(mockDna.getId(), mockDna.getDna());
+        DnaDto dto = createDnaDto(mockDna.getId(), mockDna.getDna(), mockDna.getHash(), mockDna.getMutant());
         when(service.create(payload.getDna())).thenReturn(mockDna);
 
         mockMvc.perform(post("/mutant")

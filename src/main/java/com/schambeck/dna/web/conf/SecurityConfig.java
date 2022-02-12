@@ -1,6 +1,7 @@
 package com.schambeck.dna.web.conf;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.jwt.*;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
+@Profile("!test")
 @EnableWebSecurity
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -25,6 +27,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .mvcMatchers(GET, "/mutant/stats").hasAuthority("SCOPE_read:stats")
                 .mvcMatchers(POST, "/mutant").hasAuthority("SCOPE_create:mutant")
+                .mvcMatchers(GET, "/mutant").hasAuthority("SCOPE_list:mutant")
                 .anyRequest().permitAll()
                 .and().oauth2ResourceServer().jwt().decoder(jwtDecoder());
     }
