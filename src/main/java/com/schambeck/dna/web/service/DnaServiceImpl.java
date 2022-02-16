@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class DnaServiceImpl implements DnaService {
@@ -45,6 +47,11 @@ public class DnaServiceImpl implements DnaService {
     @Override
     public Page<Dna> findAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public Optional<Dna> findById(UUID id) {
+        return repository.findById(id);
     }
 
     @Override

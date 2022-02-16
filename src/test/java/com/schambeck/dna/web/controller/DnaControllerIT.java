@@ -1,6 +1,7 @@
 package com.schambeck.dna.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.schambeck.dna.web.client.NotificationClient;
 import com.schambeck.dna.web.domain.Dna;
 import com.schambeck.dna.web.dto.DnaDto;
 import com.schambeck.dna.web.dto.PayloadDnaDto;
@@ -37,6 +38,9 @@ class DnaControllerIT {
 
     @MockBean
     private DnaServiceImpl service;
+
+    @MockBean
+    private NotificationClient notificationClient;
 
     @Test
     void createMutant() throws Exception {
