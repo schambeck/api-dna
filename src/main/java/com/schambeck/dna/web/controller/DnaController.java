@@ -11,6 +11,8 @@ import com.schambeck.dna.web.service.DnaService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +37,10 @@ class DnaController {
     }
 
     @PostMapping
-    ResponseEntity<DnaDto> create(@RequestBody @Valid PayloadDnaDto payload) {
+    ResponseEntity<DnaDto> create(@RequestBody @Valid PayloadDnaDto payload, Authentication authentication) {
         String[] dna = payload.getDna();
         Dna created = service.create(dna);
-        notificationClient.send(createNotification(created));
+        notificationClient.send(createNotification(created), ((JwtAuthenticationToken) authentication).getToken().getTokenValue());
         DnaDto representation = createDto(created);
         if (created.getMutant()) {
             return ResponseEntity.ok(representation);

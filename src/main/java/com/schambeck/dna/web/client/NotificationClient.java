@@ -1,7 +1,9 @@
 package com.schambeck.dna.web.client;
 
+import org.springframework.http.ResponseEntity;
+
 public interface NotificationClient {
 
-    Notification send(Notification notification);
+    ResponseEntity<Notification> send(Notification notification, String token);
 
 }

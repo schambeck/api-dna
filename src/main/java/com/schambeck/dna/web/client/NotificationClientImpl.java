@@ -1,7 +1,13 @@
 package com.schambeck.dna.web.client;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Service
 public class NotificationClientImpl implements NotificationClient {
@@ -14,8 +20,12 @@ public class NotificationClientImpl implements NotificationClient {
     }
 
     @Override
-    public Notification send(Notification notification) {
-        return restTemplate.postForObject(RESOURCE, notification, Notification.class);
+    public ResponseEntity<Notification> send(Notification notification, String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(APPLICATION_JSON);
+        headers.set("Authorization", "Bearer ".concat(token));
+        HttpEntity<Notification> entity = new HttpEntity<>(notification, headers);
+        return restTemplate.exchange(RESOURCE, POST, entity, Notification.class);
     }
 
 }
