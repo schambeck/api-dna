@@ -19,15 +19,6 @@ class HashUtilTest {
     }
 
     @Test
-    void createHashInvalidAlgorithm() {
-        String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> HashUtil.getInstance("INVALID").hash(dna));
-        String expected = "Fail to create new MessageDigest of INVALID";
-        String actual = ex.getMessage();
-        assertEquals(actual, expected);
-    }
-
-    @Test
     void createHashIOException() {
         String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
         OutputStream os = new OutputStream() {
@@ -41,5 +32,14 @@ class HashUtilTest {
         String actual = ex.getMessage();
         assertEquals(actual, expected);
     }
+
+//    @Test
+//    void createHashInvalidAlgorithm() {
+//        String[] dna = {"CTGAGA", "CTGAGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"};
+//        RuntimeException ex = assertThrows(RuntimeException.class, () -> HashUtil.getInstance("INVALID").hash(dna));
+//        String expected = "Fail to create new MessageDigest of INVALID";
+//        String actual = ex.getMessage();
+//        assertEquals(actual, expected);
+//    }
 
 }

@@ -6,10 +6,14 @@ import com.schambeck.dna.web.dto.QueryStatsDto;
 import com.schambeck.dna.web.dto.StatsDto;
 import com.schambeck.dna.web.exception.MutantAlreadyExistsException;
 import com.schambeck.dna.web.repository.DnaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class DnaServiceImpl implements DnaService {
@@ -38,6 +42,16 @@ public class DnaServiceImpl implements DnaService {
     public Dna create(String[] dna, String hash, boolean mutant) {
         Dna entity = new Dna(dna, hash, mutant);
         return repository.save(entity);
+    }
+
+    @Override
+    public Page<Dna> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    @Override
+    public Optional<Dna> findById(UUID id) {
+        return repository.findById(id);
     }
 
     @Override

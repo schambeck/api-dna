@@ -33,8 +33,8 @@ public final class DnaUtil {
         return new Dna(uuid, dna, hash, mutant);
     }
 
-    public static DnaDto createDnaDto(UUID id, String[] dna) {
-        return new DnaDto(id, dna);
+    public static DnaDto createDnaDto(UUID id, String[] dna, String hash, Boolean mutant) {
+        return new DnaDto(id, dna, hash, mutant);
     }
 
     public static ResultMatcher[] assertDnaDto(DnaDto dna) {

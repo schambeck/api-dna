@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DnaWebMvcApplicationIT {
+class DnaApplicationIT {
 
 	@Test
 	void contextLoads() {
@@ -13,7 +13,7 @@ class DnaWebMvcApplicationIT {
 
 	@Test
 	void main() {
-		DnaWebMvcApplication.main(new String[]{});
+		DnaApplication.main(new String[]{});
 	}
 
 }
