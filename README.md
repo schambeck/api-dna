@@ -15,6 +15,7 @@
 - Docker Compose
 - JUnit 5, Mockito, Testcontainers, JaCoCo
 - Spring Boot Admin
+- Micrometer, Prometheus
 
 ### Related Projects
 
