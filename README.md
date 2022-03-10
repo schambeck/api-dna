@@ -4,6 +4,25 @@
 
 ## Mutant Detector
 
+### Tech Stack
+
+- Java 11
+- Spring Boot
+- OAuth2, Auth0
+- PostgreSQL, Flyway
+- Swagger
+- Caffeine Cache
+- Docker Compose
+- JUnit 5, Mockito, Testcontainers, JaCoCo
+- Spring Boot Admin
+
+### Related Projects
+
+- Angular: [ui-dna](https://github.com/schambeck/ui-dna)
+- Server-sent events: [api-notification](https://github.com/schambeck/api-notification)
+- Java Microbenchmark Harness: [api-dna-bench](https://github.com/schambeck/api-dna-bench)
+- Spring Boot Admin: [spring-admin](https://github.com/schambeck/admin)
+
 ### Build artifact
 
     ./mvnw clean package
