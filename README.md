@@ -8,17 +8,17 @@
 
     ./mvnw clean package
 
-Executable file generated: target/dna-web-0.0.1-SNAPSHOT.jar
+Executable file generated: target/api-dna-0.0.1-SNAPSHOT.jar
 
 ### Execute application
 
-    java -jar dna-web-0.0.1-SNAPSHOT.jar
+    java -jar api-dna-0.0.1-SNAPSHOT.jar
 
 ## API Deployment
 
-### Amazon AWS
+### Heroku
 
-Base URL: http://ec2-54-167-218-58.compute-1.amazonaws.com:4000
+Base URL: https://dna-rest.herokuapp.com
 
 ## REST API
 
@@ -30,7 +30,7 @@ The REST API to the DNA app is described below.
 
 `GET /mutant/stats`
 
-    curl http://ec2-54-167-218-58.compute-1.amazonaws.com:4000/mutant/stats
+    curl https://dna-rest.herokuapp.com/mutant/stats
 
 #### Response
 
@@ -46,7 +46,7 @@ The REST API to the DNA app is described below.
 
 `POST /mutant`
 
-    curl -d '{"dna": ["AAAATT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST http://ec2-54-167-218-58.compute-1.amazonaws.com:4000/mutant
+    curl -d '{"dna": ["AAAATT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST https://dna-rest.herokuapp.com/mutant
 
 #### Response
 
@@ -62,7 +62,7 @@ The REST API to the DNA app is described below.
 
 `POST /mutant`
 
-    curl -d '{"dna": ["AAATTT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST http://ec2-54-167-218-58.compute-1.amazonaws.com:4000/mutant
+    curl -d '{"dna": ["AAATTT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST https://dna-rest.herokuapp.com/mutant
 
 #### Response
 
