@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.UUID;
 
 import static com.schambeck.dna.web.client.TypeNotification.SSE;
@@ -36,10 +35,10 @@ class DnaController {
     }
 
     @PostMapping
-    ResponseEntity<DnaDto> create(@RequestBody @Valid PayloadDnaDto payload, Principal principal) {
+    ResponseEntity<DnaDto> create(@RequestBody @Valid PayloadDnaDto payload) {
         String[] dna = payload.getDna();
         Dna created = service.create(dna);
-        notificationClient.send(createNotification(created, principal));
+        notificationClient.send(createNotification(created));
         DnaDto representation = createDto(created);
         if (created.getMutant()) {
             return ResponseEntity.ok(representation);
@@ -73,9 +72,8 @@ class DnaController {
     void handleMutantAlreadyExistsException() {
     }
 
-    private Notification createNotification(Dna dna, Principal principal) {
+    private Notification createNotification(Dna dna) {
         return new Notification(SSE,
-                principal.getName(),
                 "DNA created",
                 format("DNA has been created: %s", dna.getId()),
                 format("/mutant/%s", dna.getId()));
