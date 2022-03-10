@@ -6,12 +6,14 @@ public class Notification {
 
     private UUID id;
     private final TypeNotification type;
+    private final String userId;
     private final String title;
     private final String message;
     private final String link;
 
-    public Notification(TypeNotification type, String title, String message, String link) {
+    public Notification(TypeNotification type, String userId, String title, String message, String link) {
         this.type = type;
+        this.userId = userId;
         this.title = title;
         this.message = message;
         this.link = link;
@@ -19,6 +21,10 @@ public class Notification {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public TypeNotification getType() {
