@@ -17,7 +17,7 @@
         <java.version>11</java.version>
         <sonar.organization>schambeck</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.jacoco.reportPath>${project.basedir}/target/jacoco-output/merged.exec</sonar.jacoco.reportPath>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco-merged-test-coverage-report/index.html</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <dependencies>
