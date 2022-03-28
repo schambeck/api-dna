@@ -1,6 +1,6 @@
 # DNA
-[![maven](https://github.com/schambeck/dna/actions/workflows/maven.yml/badge.svg)](https://github.com/schambeck/dna/actions/workflows/maven.yml)
-[![codecov](https://codecov.io/gh/schambeck/dna/branch/main/graph/badge.svg?token=7YX6TXBH4M)](https://codecov.io/gh/schambeck/dna)
+[![maven](https://github.com/schambeck/api-dna/actions/workflows/maven.yml/badge.svg)](https://github.com/schambeck/api-dna/actions/workflows/maven.yml)
+[![codecov](https://codecov.io/gh/schambeck/api-dna/branch/main/graph/badge.svg?token=7YX6TXBH4M)](https://codecov.io/gh/schambeck/api-dna)
 
 ## Mutant Detector
 
@@ -38,7 +38,7 @@ Executable file generated: target/api-dna-0.0.1-SNAPSHOT.jar
 
 ### Heroku
 
-Base URL: https://dna-rest.herokuapp.com
+Base URL: https://sch-api-dna.herokuapp.com
 
 ## REST API
 
@@ -50,7 +50,7 @@ The REST API to the DNA app is described below.
 
 `GET /mutant/stats`
 
-    curl https://dna-rest.herokuapp.com/mutant/stats
+    curl https://sch-api-dna.herokuapp.com/mutant/stats
 
 #### Response
 
@@ -66,7 +66,7 @@ The REST API to the DNA app is described below.
 
 `POST /mutant`
 
-    curl -d '{"dna": ["AAAATT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST https://dna-rest.herokuapp.com/mutant
+    curl -d '{"dna": ["AAAATT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST https://sch-api-dna.herokuapp.com/mutant
 
 #### Response
 
@@ -82,7 +82,7 @@ The REST API to the DNA app is described below.
 
 `POST /mutant`
 
-    curl -d '{"dna": ["AAATTT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST https://dna-rest.herokuapp.com/mutant
+    curl -d '{"dna": ["AAATTT","CCCGGG","AAATTT","CCCGGG","AAATTT","CCCGGG"]}' -H "Content-Type: application/json" -X POST https://sch-api-dna.herokuapp.com/mutant
 
 #### Response
 
