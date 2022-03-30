@@ -1,6 +1,7 @@
 # DNA
 [![maven](https://github.com/schambeck/api-dna/actions/workflows/maven.yml/badge.svg)](https://github.com/schambeck/api-dna/actions/workflows/maven.yml)
 [![codecov](https://codecov.io/gh/schambeck/api-dna/branch/main/graph/badge.svg?token=7YX6TXBH4M)](https://codecov.io/gh/schambeck/api-dna)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=schambeck_api-dna&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=schambeck_api-dna)
 
 ## Mutant Detector
 
