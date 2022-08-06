@@ -22,8 +22,7 @@ class RestTemplateConfig {
     @RequestScope
     RestTemplate restTemplate(RestTemplateBuilder builder) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof JwtAuthenticationToken) {
-            JwtAuthenticationToken oauthToken = (JwtAuthenticationToken) authentication;
+        if (authentication instanceof JwtAuthenticationToken oauthToken) {
             return builder.uriTemplateHandler(new DefaultUriBuilderFactory(baseUrl))
                     .interceptors(getBearerTokenInterceptor(oauthToken.getToken().getTokenValue()))
                     .build();
