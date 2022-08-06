@@ -10,9 +10,9 @@ env:
   GAR_LOCATION: us
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: southamerica-east1-a
-  DEPLOYMENT_NAME: dna-web
+  DEPLOYMENT_NAME: api-dna
   REPOSITORY: grc.io
-  IMAGE: dna-web
+  IMAGE: api-dna
 
 jobs:
   setup-build-publish-deploy:

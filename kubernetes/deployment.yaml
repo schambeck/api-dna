@@ -3,9 +3,9 @@ kind: Deployment
 metadata:
   annotations:
     autopilot.gke.io/resource-adjustment: >-
-      {"input":{"containers":[{"name":"dna-web-sha256-1"}]},"output":{"containers":[{"limits":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"dna-web-sha256-1"}]},"modified":true}
+      {"input":{"containers":[{"name":"api-dna-sha256-1"}]},"output":{"containers":[{"limits":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"api-dna-sha256-1"}]},"modified":true}
   labels:
-    app: dna-web
+    app: api-dna
   managedFields:
     - apiVersion: apps/v1
       fieldsType: FieldsV1
@@ -32,7 +32,7 @@ metadata:
                 'f:app': {}
             'f:spec':
               'f:containers':
-                'k:{"name":"dna-web-sha256-1"}':
+                'k:{"name":"api-dna-sha256-1"}':
                   .: {}
                   'f:env':
                     .: {}
@@ -92,13 +92,13 @@ metadata:
       manager: kube-controller-manager
       operation: Update
       time: '2022-01-31T05:26:04Z'
-  name: dna-web
+  name: api-dna
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dna-web
+      app: api-dna
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -107,7 +107,7 @@ spec:
   template:
     metadata:
       labels:
-        app: dna-web
+        app: api-dna
     spec:
       containers:
         - env:
@@ -115,10 +115,10 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   key: _SPRING_PROFILES_ACTIVE
-                  name: dna-web-config-yse6
+                  name: api-dna-config-yse6
           image: gcr.io/lexical-emblem-339506/github.com/schambeck/dna
           imagePullPolicy: IfNotPresent
-          name: dna-web-sha256-1
+          name: api-dna-sha256-1
           resources:
             limits:
               cpu: 500m
@@ -140,7 +140,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   labels:
-    app: dna-web
+    app: api-dna
   managedFields:
     - apiVersion: autoscaling/v2beta1
       fieldsType: FieldsV1
@@ -176,7 +176,7 @@ metadata:
       manager: vpa-recommender
       operation: Update
       time: '2022-01-31T05:27:22Z'
-  name: dna-web-hpa-wcg1
+  name: api-dna-hpa-wcg1
   namespace: default
 spec:
   maxReplicas: 1
@@ -189,7 +189,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: dna-web
+    name: api-dna
 ---
 apiVersion: v1
 kind: Service
@@ -199,7 +199,7 @@ metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
   labels:
-    app: dna-web
+    app: api-dna
   managedFields:
     - apiVersion: v1
       fieldsType: FieldsV1
@@ -238,7 +238,7 @@ metadata:
       manager: kube-controller-manager
       operation: Update
       time: '2022-01-31T03:50:04Z'
-  name: dna-web-service
+  name: api-dna-service
   namespace: default
 spec:
   clusterIP: 10.9.0.50
@@ -254,6 +254,6 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: dna-web
+    app: api-dna
   sessionAffinity: None
   type: LoadBalancer

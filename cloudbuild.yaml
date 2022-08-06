@@ -8,5 +8,5 @@ steps:
     env:
       - spring_profiles_active=$_SPRING_PROFILES_ACTIVE
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-f", "src/main/docker/Dockerfile", "-t", "gcr.io/$PROJECT_ID/dna-web:latest", "--build-arg=JAR_FILE=target/dna-web-0.0.1-SNAPSHOT.jar", "."]
-images: ["gcr.io/$PROJECT_ID/dna-web:latest"]
+    args: ["build", "-f", "src/main/docker/Dockerfile", "-t", "gcr.io/$PROJECT_ID/api-dna:latest", "--build-arg=JAR_FILE=target/api-dna-0.0.1-SNAPSHOT.jar", "."]
+images: ["gcr.io/$PROJECT_ID/api-dna:latest"]
