@@ -10,6 +10,10 @@ public class Notification {
     private final String message;
     private final String link;
 
+    public Notification() {
+        this(null, null, null, null);
+    }
+
     public Notification(TypeNotification type, String title, String message, String link) {
         this.type = type;
         this.title = title;

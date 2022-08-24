@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%.20thread] %highlight(%-5level) %yellow(%logger{0}): %msg%n%throwable</pattern>
         </encoder>
     </appender>
-    <appender name="File" class="ch.qos.logback.core.FileAppender">
-        <file>dna.log</file>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>api-dna.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%.20thread] %highlight(%-5level) %yellow(%logger{0}): %msg%n%throwable</pattern>
         </encoder>
     </appender>
-    <root level="info">
-        <appender-ref ref="Console"/>
-        <appender-ref ref="File"/>
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
     </root>
 </configuration>

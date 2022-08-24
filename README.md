@@ -29,11 +29,11 @@
 
     ./mvnw clean package
 
-Executable file generated: target/api-dna-0.0.1-SNAPSHOT.jar
+Executable file generated: target/api-dna-1.0.0.jar
 
 ### Execute application
 
-    java -jar api-dna-0.0.1-SNAPSHOT.jar
+    java -jar api-dna-1.0.0.jar
 
 ## API Deployment
 

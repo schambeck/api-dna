@@ -24,6 +24,7 @@ import static org.springframework.http.HttpStatus.*;
 @Validated
 @RestController
 @RequestMapping("/mutant")
+@CrossOrigin(origins = {"http://localhost:4200", "https://schambeck.github.io/ui-dna"})
 class DnaController {
 
     private final DnaService service;

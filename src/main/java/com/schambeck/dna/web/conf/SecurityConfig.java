@@ -1,46 +1,25 @@
 package com.schambeck.dna.web.conf;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
-import org.springframework.security.oauth2.core.OAuth2TokenValidator;
-import org.springframework.security.oauth2.jwt.*;
-import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @Profile("!test")
-@EnableWebSecurity
-class SecurityConfig {
+@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${auth0.audience}")
-    private String audience;
-
-    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-    private String issuer;
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .mvcMatchers(GET, "/mutant/stats").hasAuthority("SCOPE_read:stats")
-                .mvcMatchers(POST, "/mutant").hasAuthority("SCOPE_create:mutant")
-                .mvcMatchers(GET, "/mutant").hasAuthority("SCOPE_list:mutant")
-                .anyRequest().permitAll()
-                .and().oauth2ResourceServer().jwt().decoder(jwtDecoder());
-        return http.build();
-    }
-
-    private JwtDecoder jwtDecoder() {
-        OAuth2TokenValidator<Jwt> withAudience = new AudienceValidator(audience);
-        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
-        OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(withAudience, withIssuer);
-        NimbusJwtDecoder jwtDecoder = JwtDecoders.fromOidcIssuerLocation(issuer);
-        jwtDecoder.setJwtValidator(validator);
-        return jwtDecoder;
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors()
+                .and().authorizeRequests()
+                .antMatchers(GET, "/mutant/**").hasAuthority("SCOPE_read")
+                .antMatchers(POST, "/mutant").hasAuthority("SCOPE_write")
+                .anyRequest().authenticated()
+                .and().oauth2ResourceServer().jwt();
     }
 
 }
