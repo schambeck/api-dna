@@ -238,7 +238,7 @@ metadata:
       manager: kube-controller-manager
       operation: Update
       time: '2022-01-31T03:50:04Z'
-  name: api-dna-service
+  name: api-dna
   namespace: default
 spec:
   clusterIP: 10.9.0.50
