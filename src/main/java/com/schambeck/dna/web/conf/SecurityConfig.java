@@ -18,7 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 .antMatchers(GET, "/mutant/**").hasAuthority("SCOPE_read")
                 .antMatchers(POST, "/mutant").hasAuthority("SCOPE_write")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and().oauth2ResourceServer().jwt();
     }
 
