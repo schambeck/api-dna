@@ -6,7 +6,6 @@ TARGET_JAR = target/${JAR}
 #JAVA_OPTS = -Dserver.port=8080 -javaagent:new-relic/newrelic.jar
 JAVA_OPTS = -Dserver.port=0
 
-#DOCKER_IMAGE = schambeck.jfrog.io/schambeck-docker/${APP}:latest
 DOCKER_IMAGE = ${APP}:latest
 DOCKER_FOLDER = src/main/docker
 DOCKER_CONF = ${DOCKER_FOLDER}/Dockerfile
@@ -17,7 +16,7 @@ AB_FOLDER = ab-results
 AB_TIME = 10
 AB_CONCURRENCY = 5
 
-BASE_URL = http://localhost:43923
+BASE_URL = http://localhost:8080
 STATS_ENDPOINT = ${BASE_URL}/mutant/stats
 CREATE_ENDPOINT = ${BASE_URL}/mutant
 PAYLOAD = ${AB_FOLDER}/dna-10.json
@@ -64,10 +63,11 @@ docker-run:
 		--restart=always \
 		--net schambeck-bridge \
 		--name ${APP} \
+	  	--env SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dna \
+		--env SPRING_DATASOURCE_USERNAME=postgres \
+		--env SPRING_DATASOURCE_PASSWORD=postgres \
 		--env DISCOVERY_URI=http://srv-discovery:8761/eureka \
-		--env EUREKA_INSTANCE_PREFER_IP_ADDRESS=true \
-		--env AUTH_URI=http://srv-authorization:9000 \
-		--env SPRING_SQL_INIT_MODE=always \
+		--env AUTH_URI=http://srv-authorization:9000/auth/realms/schambeck \
 		--env SPRING_RABBITMQ_HOST=rabbitmq \
 		--env SPRING_RABBITMQ_PORT=5672 \
 		--env SPRING_RABBITMQ_VIRTUAL_HOST= \
@@ -95,6 +95,8 @@ docker-pull:
 
 dist-compose-up: dist compose-up
 
+dist-docker-build-compose-up: dist docker-build compose-up
+
 compose-up:
 	docker-compose -p ${APP} -f ${COMPOSE_CONF} up -d --build
 
@@ -103,7 +105,7 @@ compose-down: --compose-down
 compose-down-rmi: --compose-down --rm-docker-image
 
 --compose-down:
-	docker-compose -f ${COMPOSE_CONF} down
+	docker-compose -p ${APP} -f ${COMPOSE_CONF} down
 
 compose-logs:
 	docker-compose -f ${COMPOSE_CONF} logs -f \web
