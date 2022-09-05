@@ -7,9 +7,9 @@
 
 ### Tech Stack
 
-- Java 11
+- Java 17
 - Spring Boot
-- OAuth2, Auth0
+- Spring Security: OAuth2, SSO, Keycloak
 - PostgreSQL, Flyway
 - Swagger
 - Caffeine Cache
@@ -17,6 +17,12 @@
 - JUnit 5, Mockito, Testcontainers, JaCoCo
 - Spring Boot Admin
 - Micrometer, Prometheus
+- Docker Swarm Mode: Cluster Managing, Container Orchestration and Routing Mesh
+- Traefik: Reverse Proxy, Load Balancer, Auto Service Discovery
+- Spring Cloud
+  - Service Discovery: Eureka
+  - Config Server, Bus AMQP and RabbitMQ
+  - Client Side Load Balancer: Ribbon
 
 ### Related Projects
 
@@ -24,6 +30,9 @@
 - Server-sent events: [api-notification](https://github.com/schambeck/api-notification)
 - Java Microbenchmark Harness: [api-dna-bench](https://github.com/schambeck/api-dna-bench)
 - Spring Boot Admin: [spring-admin](https://github.com/schambeck/admin)
+- Spring Cloud Discovery: [srv-discovery](https://github.com/schambeck/srv-discovery)
+- Spring Cloud Config Server: [srv-config](https://github.com/schambeck/srv-config)
+- Keycloak Single Sign-On: [srv-authorization](https://github.com/schambeck/srv-authorization)
 
 ### Build artifact
 
