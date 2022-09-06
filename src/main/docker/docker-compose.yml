@@ -3,15 +3,17 @@ services:
   web:
     image: api-dna:latest
     networks:
-      - schambeck-overlay
+      - schambeck-net
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dna
+      - SERVER_PORT=80
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-dna:5432/dna
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - CUSTOM_CORS_ALLOWED_ORIGINS=http://localhost:4200
       - CUSTOM_API_NOTIFICATION_SERVICE_ID=http://api-notification
       - DISCOVERY_URI=http://srv-discovery:8761/eureka
-      - AUTH_URI=http://srv-authorization:9000/auth/realms/schambeck
+      - AUTH_URI=https://sch-srv-authorization.herokuapp.com/auth/realms/schambeck
+      - TRACING_URI=http://srv-tracing:9411
       - SPRING_RABBITMQ_HOST=srv-rabbitmq
       - SPRING_RABBITMQ_PORT=5672
       - SPRING_RABBITMQ_VIRTUAL_HOST=
@@ -24,14 +26,19 @@ services:
           memory: 384M
         reservations:
           memory: 256M
+      labels:
+        - traefik.enable=true
+        - traefik.http.services.api-dna.loadbalancer.server.port=80
   db:
     image: 'postgres:12.9-alpine'
     networks:
-      - schambeck-overlay
+      schambeck-net:
+        aliases:
+          - db-dna
     environment:
       - POSTGRES_DB=dna
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 networks:
-  schambeck-overlay:
+  schambeck-net:
     external: true

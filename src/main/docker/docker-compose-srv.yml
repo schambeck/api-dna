@@ -1,0 +1,79 @@
+version: '3.9'
+services:
+  discovery:
+    image: srv-discovery:latest
+    networks:
+      schambeck-net:
+        aliases:
+          - srv-discovery
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 384M
+        reservations:
+          memory: 256M
+    ports:
+      - target: 8761
+        published: 8761
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      schambeck-net:
+        aliases:
+          - srv-rabbitmq
+    ports:
+      - target: 5672
+        published: 5672
+      - target: 15672
+        published: 15672
+  config:
+    image: srv-config:latest
+    networks:
+      schambeck-net:
+        aliases:
+          - srv-config
+    environment:
+      - DISCOVERY_URI=http://srv-discovery:8761/eureka
+      - SPRING_RABBITMQ_HOST=srv-rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_VIRTUAL_HOST=
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          memory: 384M
+        reservations:
+          memory: 256M
+  tracing:
+    image: openzipkin/zipkin
+    networks:
+      schambeck-net:
+        aliases:
+          - srv-tracing
+    ports:
+      - target: 9411
+        published: 9411
+  proxy:
+    image: traefik:latest
+    networks:
+      - schambeck-net
+    command:
+      - --providers.docker.swarmMode=true
+      - --providers.docker.exposedByDefault=false
+      - --providers.docker.defaultRule=Host(`{{ index .Labels "com.docker.stack.namespace" }}.localhost`)
+      - --api.dashboard=true
+      - --api.insecure=true
+    ports:
+      - target: 80
+        published: 80
+      - target: 8080
+        published: 8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+networks:
+  schambeck-net:
+    name: schambeck-net
+    driver: overlay
