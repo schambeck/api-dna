@@ -23,6 +23,7 @@
   - Service Discovery: Eureka
   - Config Server, Bus AMQP and RabbitMQ
   - Client Side Load Balancer: Ribbon
+  - Tracing: Sleuth, Zipkin
 
 ### Related Projects
 
