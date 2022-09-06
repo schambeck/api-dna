@@ -11,7 +11,6 @@ DOCKER_FOLDER = src/main/docker
 DOCKER_CONF = ${DOCKER_FOLDER}/Dockerfile
 COMPOSE_APP_CONF = ${DOCKER_FOLDER}/docker-compose.yml
 COMPOSE_SRV_CONF = ${DOCKER_FOLDER}/docker-compose-srv.yml
-SWARM_CONF = ${DOCKER_FOLDER}/swarm/docker-compose.yml
 REPLICAS = 1
 
 AB_FOLDER = ab-results

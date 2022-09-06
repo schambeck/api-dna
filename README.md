@@ -13,7 +13,6 @@
 - PostgreSQL, Flyway
 - Swagger
 - Caffeine Cache
-- Docker Compose
 - JUnit 5, Mockito, Testcontainers, JaCoCo
 - Spring Boot Admin
 - Micrometer, Prometheus
@@ -33,7 +32,11 @@
 - Spring Boot Admin: [spring-admin](https://github.com/schambeck/admin)
 - Spring Cloud Discovery: [srv-discovery](https://github.com/schambeck/srv-discovery)
 - Spring Cloud Config Server: [srv-config](https://github.com/schambeck/srv-config)
-- Keycloak Single Sign-On: [srv-authorization](https://github.com/schambeck/srv-authorization)
+- Keycloak Single Sign-On Authorization: [srv-authorization](https://github.com/schambeck/srv-authorization)
+
+### Initialize Swarm
+
+    docker swarm init
 
 ### Build artifact
 
@@ -41,9 +44,54 @@
 
 Executable file generated: target/api-dna-1.0.0.jar
 
-### Execute application
+### Build docker image
 
-    java -jar api-dna-1.0.0.jar
+    make docker-build
+    
+### Deploy infra stack
+
+    make stack-srv-deploy
+    
+### Deploy app stack
+
+    make stack-app-deploy
+    
+### Swagger
+
+    http://api-dna.localhost
+
+### Actuator
+
+    http://api-dna.localhost/actuator
+
+### Traefik Dashboard
+
+    http://localhost:8080
+
+### Zipkin Web UI
+
+    http://localhost:9411
+
+### Keycloak Admin Console
+
+    https://sch-srv-authorization.herokuapp.com/auth
+    User: schambeck-admin
+    Pass: pass
+
+### Config Server
+
+    http://localhost:8888/api-dna/default
+    http://localhost:8888/api-notification/default
+
+### RabbitMQ Messaging AMQP
+
+    http://localhost:15672
+    User: guest
+    Pass: guest
+
+### Eureka Web UI
+
+    http://localhost:8761
 
 ## API Deployment
 
