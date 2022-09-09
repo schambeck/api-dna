@@ -10,7 +10,8 @@ DOCKER_IMAGE = ${APP}:latest
 DOCKER_FOLDER = src/main/docker
 DOCKER_CONF = ${DOCKER_FOLDER}/Dockerfile
 COMPOSE_APP_CONF = ${DOCKER_FOLDER}/docker-compose.yml
-COMPOSE_SRV_CONF = ${DOCKER_FOLDER}/docker-compose-srv.yml
+STACK_APP_CONF = ${DOCKER_FOLDER}/docker-stack-app.yml
+STACK_SRV_CONF = ${DOCKER_FOLDER}/docker-stack-srv.yml
 REPLICAS = 1
 
 AB_FOLDER = ab-results
@@ -118,10 +119,10 @@ compose-logs:
 # Swarm
 
 stack-app-deploy:
-	docker stack deploy -c ${COMPOSE_APP_CONF} --with-registry-auth ${APP}
+	docker stack deploy -c ${STACK_APP_CONF} --with-registry-auth ${APP}
 
 stack-srv-deploy:
-	docker stack deploy -c ${COMPOSE_SRV_CONF} --with-registry-auth srv
+	docker stack deploy -c ${STACK_SRV_CONF} --with-registry-auth srv
 
 stack-app-rm:
 	docker stack rm ${APP}
