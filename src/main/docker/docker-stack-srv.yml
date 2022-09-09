@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   discovery:
-    image: mschambeck/srv-discovery:latest
+    image: srv-discovery:latest
     networks:
       schambeck-net:
         aliases:
@@ -34,7 +34,7 @@ services:
       - target: 15672
         published: 15672
   config:
-    image: mschambeck/srv-config:latest
+    image: srv-config:latest
     networks:
       schambeck-net:
         aliases:
