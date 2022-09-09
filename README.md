@@ -32,7 +32,7 @@
 - Spring Boot Admin: [spring-admin](https://github.com/schambeck/admin)
 - Spring Cloud Discovery: [srv-discovery](https://github.com/schambeck/srv-discovery)
 - Spring Cloud Config Server: [srv-config](https://github.com/schambeck/srv-config)
-- Keycloak Single Sign-On Authorization: [srv-authorization](https://github.com/schambeck/srv-authorization)
+- Keycloak Single Sign-On Authorization: [srv-keycloak](https://github.com/schambeck/srv-keycloak)
 
 ### Initialize Swarm
 
@@ -74,16 +74,15 @@ Executable file generated: target/api-dna-1.0.0.jar
 
 ### Keycloak Admin Console
 
-    https://sch-srv-authorization.herokuapp.com/auth
-    User: schambeck-admin
-    Pass: pass
+    http://srv-keycloak.localhost
+    User: admin
+    Pass: admin
 
 ### Config Server
 
     http://localhost:8888/api-dna/default
-    http://localhost:8888/api-notification/default
 
-### RabbitMQ Messaging AMQP
+### RabbitMQ Web Interface
 
     http://localhost:15672
     User: guest
@@ -151,5 +150,3 @@ The REST API to the DNA app is described below.
 {"id": "32a14bcc-fdf2-472a-876d-e04a57438edb"}
 
 ```
-
-

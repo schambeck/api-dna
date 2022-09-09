@@ -12,7 +12,7 @@ services:
       - CUSTOM_CORS_ALLOWED_ORIGINS=http://localhost:4200
       - CUSTOM_API_NOTIFICATION_SERVICE_ID=http://api-notification
       - DISCOVERY_URI=http://srv-discovery:8761/eureka
-      - AUTH_URI=https://sch-srv-authorization.herokuapp.com/auth/realms/schambeck
+      - AUTH_URI=http://srv-keycloak.localhost/realms/schambeck
       - TRACING_URI=http://srv-tracing:9411
       - SPRING_RABBITMQ_HOST=srv-rabbitmq
       - SPRING_RABBITMQ_PORT=5672
@@ -39,6 +39,12 @@ services:
       - POSTGRES_DB=dna
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
 networks:
   schambeck-net:
     external: true

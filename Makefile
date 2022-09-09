@@ -52,6 +52,8 @@ run:
 
 # Docker
 
+dist-docker-build-deploy: dist docker-build stack-app-deploy
+
 dist-docker-build: dist docker-build
 
 dist-docker-build-push: dist docker-build docker-push
@@ -94,7 +96,7 @@ docker-push:
 docker-pull:
 	docker pull ${DOCKER_IMAGE}
 
-# Docker Compose
+# Compose
 
 dist-compose-up: dist compose-up
 
@@ -113,7 +115,7 @@ compose-down-rmi: --compose-down --rm-docker-image
 compose-logs:
 	docker-compose -f ${COMPOSE_APP_CONF} logs -f \web
 
-# Docker Swarm
+# Swarm
 
 stack-app-deploy:
 	docker stack deploy -c ${COMPOSE_APP_CONF} --with-registry-auth ${APP}
