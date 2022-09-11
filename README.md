@@ -34,10 +34,6 @@
 - Spring Cloud Config Server: [srv-config](https://github.com/schambeck/srv-config)
 - Keycloak Single Sign-On Authorization: [srv-keycloak](https://github.com/schambeck/srv-keycloak)
 
-### Initialize Swarm
-
-    docker swarm init
-
 ### Build artifact
 
     ./mvnw clean package
@@ -47,7 +43,11 @@ Executable file generated: target/api-dna-1.0.0.jar
 ### Build docker image
 
     make docker-build
-    
+
+### Initialize Swarm
+
+    docker swarm init
+
 ### Deploy infra stack
 
     make stack-srv-deploy
@@ -74,9 +74,17 @@ Executable file generated: target/api-dna-1.0.0.jar
 
 ### Keycloak Admin Console
 
-    http://srv-keycloak.localhost
+    http://srv-keycloak.localhost/admin
     User: admin
     Pass: admin
+
+### Keycloak Account Console
+
+    http://srv-keycloak.localhost/realms/schambeck/account
+    User1: user01
+    Pass1: password1
+    User2: user02
+    Pass2: password2
 
 ### Config Server
 
