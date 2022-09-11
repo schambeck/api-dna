@@ -9,7 +9,8 @@ JAVA_OPTS = -Dserver.port=0
 DOCKER_IMAGE = ${APP}:latest
 DOCKER_FOLDER = src/main/docker
 DOCKER_CONF = ${DOCKER_FOLDER}/Dockerfile
-COMPOSE_APP_CONF = ${DOCKER_FOLDER}/docker-compose.yml
+COMPOSE_CONF = ${DOCKER_FOLDER}/docker-compose.yml
+STACK_CONF = ${DOCKER_FOLDER}/docker-stack.yml
 STACK_APP_CONF = ${DOCKER_FOLDER}/docker-stack-app.yml
 STACK_SRV_CONF = ${DOCKER_FOLDER}/docker-stack-srv.yml
 REPLICAS = 1
@@ -104,22 +105,25 @@ dist-compose-up: dist compose-up
 dist-docker-build-compose-up: dist docker-build compose-up
 
 compose-up:
-	docker-compose -p ${APP} -f ${COMPOSE_APP_CONF} up -d --build
+	docker-compose -p ${APP} -f ${COMPOSE_CONF} up -d --build
 
 compose-down: --compose-down
 
 compose-down-rmi: --compose-down --rm-docker-image
 
 --compose-down:
-	docker-compose -p ${APP} -f ${COMPOSE_APP_CONF} down
+	docker-compose -p ${APP} -f ${COMPOSE_CONF} down
 
 compose-logs:
-	docker-compose -f ${COMPOSE_APP_CONF} logs -f \web
+	docker-compose -f ${COMPOSE_CONF} logs -f \web
 
 # Swarm
 
+stack-deploy:
+	docker stack deploy -c ${STACK_CONF} --with-registry-auth ${APP}
+
 stack-app-deploy:
-	docker stack deploy -c ${STACK_APP_CONF} --with-registry-auth ${APP}
+	docker stack deploy -c ${STACK_APP_CONF} --with-registry-auth api
 
 stack-srv-deploy:
 	docker stack deploy -c ${STACK_SRV_CONF} --with-registry-auth srv
