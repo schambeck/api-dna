@@ -23,7 +23,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco-merged-test-coverage-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.language>java</sonar.language>
-        <spring-boot.version>2.7.2</spring-boot.version>
+        <spring-boot.version>2.7.4</spring-boot.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
         <reactor-test.version>3.4.21</reactor-test.version>
         <spring-context-indexer.version>5.3.22</spring-context-indexer.version>
