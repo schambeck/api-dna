@@ -26,7 +26,7 @@
         <spring-boot.version>2.7.4</spring-boot.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
         <reactor-test.version>3.4.21</reactor-test.version>
-        <spring-context-indexer.version>5.3.22</spring-context-indexer.version>
+        <spring-context-indexer.version>5.3.23</spring-context-indexer.version>
         <spring-boot-admin-starter-client.version>2.7.4</spring-boot-admin-starter-client.version>
         <hibernate-types-55.version>2.17.1</hibernate-types-55.version>
         <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
