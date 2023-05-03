@@ -16,7 +16,7 @@
     <properties>
         <java.version>17</java.version>
         <lombok.version>1.18.24</lombok.version>
-        <postgresql.version>42.5.0</postgresql.version>
+        <postgresql.version>42.5.1</postgresql.version>
         <flyway-core.version>9.1.6</flyway-core.version>
         <h2.version>2.1.214</h2.version>
         <sonar.organization>schambeck</sonar.organization>
