@@ -13,14 +13,10 @@ public final class HashUtil {
 
     private static final String SHA_256 = "SHA-256";
     private static HashUtil INSTANCE;
-    private final MessageDigest digest;
+    private final String algorithm;
 
     private HashUtil(String algorithm) {
-        try {
-            digest = MessageDigest.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(format("Fail to create new MessageDigest of %s", algorithm), e);
-        }
+        this.algorithm = algorithm;
     }
 
     public static HashUtil getInstance() {
@@ -41,9 +37,18 @@ public final class HashUtil {
     }
 
     public String hash(byte[] bytes) {
+        MessageDigest digest = newDigest();
         digest.update(bytes);
         byte[] hash = digest.digest();
         return toHex(hash).toUpperCase();
+    }
+
+    private MessageDigest newDigest() {
+        try {
+            return MessageDigest.getInstance(algorithm);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(format("Fail to create new MessageDigest of %s", algorithm), e);
+        }
     }
 
     private String toHex(byte[] hash) {
