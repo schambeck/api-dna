@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class DnaServiceImpl implements DnaService {
@@ -57,14 +59,11 @@ public class DnaServiceImpl implements DnaService {
     @Override
     public StatsDto stats() {
         List<QueryStatsDto> list = repository.stats();
+        Map<Boolean, Long> map = list.stream()
+                .collect(Collectors.toMap(QueryStatsDto::isMutant, QueryStatsDto::getCount));
         StatsDto stats = new StatsDto();
-        for (QueryStatsDto query : list) {
-            if (query.isMutant()) {
-                stats.setCountMutantDna(query.getCount());
-            } else {
-                stats.setCountHumanDna(query.getCount());
-            }
-        }
+        stats.setCountMutantDna(map.getOrDefault(true, 0L));
+        stats.setCountHumanDna(map.getOrDefault(false, 0L));
         return stats;
     }
 

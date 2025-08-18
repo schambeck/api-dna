@@ -1,9 +1,6 @@
 package com.schambeck.dna.web.util;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -14,9 +11,11 @@ public final class HashUtil {
     private static final String SHA_256 = "SHA-256";
     private static HashUtil INSTANCE;
     private final String algorithm;
+    private final MessageDigest digest;
 
     private HashUtil(String algorithm) {
         this.algorithm = algorithm;
+        this.digest = newDigest();
     }
 
     public static HashUtil getInstance() {
@@ -31,13 +30,12 @@ public final class HashUtil {
     }
 
     public String hash(String[] dna) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        writeBytes(dna, baos);
-        return hash(baos.toByteArray());
+        String joined = String.join("", dna);
+        return hash(joined.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String hash(byte[] bytes) {
-        MessageDigest digest = newDigest();
+    public synchronized String hash(byte[] bytes) {
+        digest.reset();
         digest.update(bytes);
         byte[] hash = digest.digest();
         return toHex(hash).toUpperCase();
@@ -60,15 +58,6 @@ public final class HashUtil {
             hexString.append(hex);
         }
         return hexString.toString();
-    }
-
-    void writeBytes(String[] dna, OutputStream baos) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
-            oos.writeObject(dna);
-            oos.flush();
-        } catch (IOException e) {
-            throw new RuntimeException("Fail to convert string array to bytes");
-        }
     }
 
 }

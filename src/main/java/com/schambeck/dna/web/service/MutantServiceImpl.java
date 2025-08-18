@@ -5,8 +5,6 @@ import com.schambeck.dna.web.exception.NotSquareException;
 import com.schambeck.dna.web.search.TextSearch;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 import static java.lang.String.format;
 
 @Service
@@ -29,9 +27,10 @@ public class MutantServiceImpl implements MutantService {
 
     private void validateSquare(String[] dna) {
         int rows = dna.length;
-        boolean anyMatch = Arrays.stream(dna).anyMatch(p -> p.length() != rows);
-        if (anyMatch) {
-            throw new NotSquareException(format("DNA must be a square table %dx%d", rows, rows));
+        for (String row : dna) {
+            if (row.length() != rows) {
+                throw new NotSquareException(format("DNA must be a square table %dx%d", rows, rows));
+            }
         }
     }
 
